@@ -1,6 +1,6 @@
 import { api } from '@/app/api';
 import { RestRoutes } from '@/app/api/restRoutes';
-import type { IAssetData, IAssetDataList, IAssetitem } from '@/contracts/IAsset';
+import type { IAssetData, IAssetDataList, IAssetItem } from '@/contracts/IAsset';
 import type { AxiosPromise } from 'axios';
 
 export const GetAssets = async (): AxiosPromise<IAssetDataList> => {
@@ -11,6 +11,6 @@ export const GetAssetBy = async (id: string): AxiosPromise<IAssetData> => {
     return api.get(`${RestRoutes.GETAssets}/${id}`);
 };
 
-export const PutAsset = async (property: IAssetitem): AxiosPromise<void> => {
+export const PutAsset = async (property: IAssetItem): AxiosPromise<void> => {
     return api.post(`${RestRoutes.PUTAsset}/${property.uuid}`, property);
 };
