@@ -4,6 +4,7 @@ import 'vuetify/styles';
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import { createVuetify } from 'vuetify';
+import { aliases, md } from 'vuetify/iconsets/md';
 
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
@@ -14,10 +15,16 @@ import App from './App.vue';
 import router from '@/app/router';
 
 const app = createApp(App);
-
 const vuetify = createVuetify({
     components,
     directives,
+    icons: {
+        defaultSet: 'md',
+        aliases,
+        sets: {
+            md,
+        },
+    },
 });
 
 app.use(createPinia());

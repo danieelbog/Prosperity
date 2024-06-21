@@ -4,19 +4,7 @@
     src: url('@/assets/fonts/material-symbols/MaterialSymbolsOutlined.woff2') format('woff2');
 }
 
-@font-face {
-    font-family: 'Material Symbols Rounded';
-    font-style: normal;
-    src: url('@/assets/fonts/material-symbols/MaterialSymbolsRounded.woff2') format('woff2');
-}
-
-@font-face {
-    font-family: 'Material Symbols Sharp';
-    font-style: normal;
-    src: url('@/assets/fonts/material-symbols/MaterialSymbolsSharp.woff2') format('woff2');
-}
-
-.material-symbols-outlined {
+.material-icons {
     font-family: 'Material Symbols Outlined';
     font-weight: normal;
     font-style: normal;
@@ -30,43 +18,7 @@
     direction: ltr;
 }
 
-.material-symbols-outlined.fill {
-    font-variation-settings: 'FILL' 1;
-}
-
-.material-symbols-rounded {
-    font-family: 'Material Symbols Rounded';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-}
-
-.material-symbols-rounded.fill {
-    font-variation-settings: 'FILL' 1;
-}
-
-.material-symbols-sharp {
-    font-family: 'Material Symbols Sharp';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-}
-
-.material-symbols-sharp.fill {
+.material-icons.fill {
     font-variation-settings: 'FILL' 1;
 }
 
