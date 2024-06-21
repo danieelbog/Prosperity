@@ -16,9 +16,9 @@ export interface IAssetItem {
     street_number: string;
     title: string;
     type: IAssetTypeItem;
-    available_from: string;
-    created_at: string;
-    updated_at: string;
+    available_from: Date;
+    created_at: Date;
+    updated_at: Date;
 }
 
 export interface IAssetLinks {
@@ -53,4 +53,6 @@ export interface IAssetData {
 
 export interface IAssetDataList {
     data: IAssetItem[];
+    links: IAssetLinks;
+    meta: IAssetMeta;
 }
