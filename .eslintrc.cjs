@@ -13,7 +13,6 @@ module.exports = {
         ecmaVersion: 'latest',
     },
     rules: {
-        'vue/valid-v-slot': 'off', // Disable this rule if it's causing issues
-        // Add any other custom rules here
+        'vue/valid-v-slot': 'off',
     },
 };
