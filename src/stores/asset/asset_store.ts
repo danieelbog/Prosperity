@@ -24,11 +24,6 @@ export const useAssetsStore = defineStore('assets', () => {
         meta.value = response.data.meta;
         links.value = response.data.links;
         state.value = 'READY';
-
-        console.log('assets', assets.value);
-        console.log('meta', meta.value);
-        console.log('links', links.value);
-        console.log('state', state.value);
     };
 
     return { assets, meta, state, fetchAssets };

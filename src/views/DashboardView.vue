@@ -9,23 +9,17 @@
         :loading="loading"
         @update:options="fetchAssets">
         <template v-slot:item.address="{ item }">
-            <span>
-                {{ item.street }}
-            </span>
-            <span class="mx-2"> {{ item.street_number }} </span>
-            <span>
-                {{ item.postal_code }}
-            </span>
+            <AddressCell
+                :street="item.street"
+                :street-number="item.street_number"
+                :postal-code="item.postal_code">
+            </AddressCell>
         </template>
         <template v-slot:item.created_at="{ item }">
-            <span>
-                {{ $d(item.available_from) }}
-            </span>
+            <DateCell :date="item.available_from"></DateCell>
         </template>
         <template v-slot:item.updated_at="{ item }">
-            <span>
-                {{ $d(item.updated_at) }}
-            </span>
+            <DateCell :date="item.updated_at"></DateCell>
         </template>
         <template v-slot:bottom>
             <div class="d-flex flex-row-reverse mt-2">
@@ -46,6 +40,8 @@ import type { IPagination } from '@/contracts/IPagination';
 import { useAssetsStore } from '@/stores/asset/asset_store';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
+import AddressCell from '@/components/grid/AddressCell.vue';
+import DateCell from '@/components/grid/DateCell.vue';
 
 const { fetchAssets } = useAssetsStore();
 const { assets, meta, state } = storeToRefs(useAssetsStore());

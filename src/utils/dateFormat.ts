@@ -1,4 +1,4 @@
-export function formatDate(date: Date) {
+export const formatDate = (date: Date) => {
     const options: Intl.DateTimeFormatOptions = {
         year: 'numeric',
         month: 'long',
@@ -10,4 +10,4 @@ export function formatDate(date: Date) {
         timeZone: 'UTC',
     };
     return date.toLocaleString('en-US', options);
-}
+};
