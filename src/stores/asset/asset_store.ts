@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { GetAssets } from './assetService';
 import type { IAssetItem, IAssetLinks, IAssetMeta } from '@/contracts/IAsset';
+import type { IPagination } from '@/contracts/IPagination';
 
 type STATE = 'INIT' | 'LOADING' | 'READY' | 'ERROR';
 export const useAssetsStore = defineStore('assets', () => {
@@ -10,9 +11,9 @@ export const useAssetsStore = defineStore('assets', () => {
     const links = ref<IAssetLinks>();
     const state = ref<STATE>('INIT');
 
-    const fetchAssets = async () => {
+    const fetchAssets = async (pagination: IPagination) => {
         state.value = 'LOADING';
-        const response = await GetAssets();
+        const response = await GetAssets(pagination);
 
         if (!response.data) {
             state.value = 'ERROR';
@@ -24,7 +25,10 @@ export const useAssetsStore = defineStore('assets', () => {
         links.value = response.data.links;
         state.value = 'READY';
 
-        console.log(assets.value);
+        console.log('assets', assets.value);
+        console.log('meta', meta.value);
+        console.log('links', links.value);
+        console.log('state', state.value);
     };
 
     return { assets, meta, state, fetchAssets };

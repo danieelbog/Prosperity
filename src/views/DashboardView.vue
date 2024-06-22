@@ -1,6 +1,8 @@
 <template>
     <v-data-table-server
-        v-model:items-per-page="itemsPerPage"
+        :height="gridHeight"
+        :items-per-page="pagination.itemsPerPage"
+        :page="pagination.page"
         :headers="headers"
         :items="assets"
         :items-length="totalItems"
@@ -25,64 +27,70 @@
                 {{ $d(item.updated_at) }}
             </span>
         </template>
+        <template v-slot:bottom>
+            <div class="d-flex flex-row-reverse mt-2">
+                <div class="w-25">
+                    <v-pagination
+                        :model-value="currentPage"
+                        @update:modelValue="onPageChange"
+                        :length="pageCount">
+                    </v-pagination>
+                </div>
+            </div>
+        </template>
     </v-data-table-server>
 </template>
 
 <script setup lang="ts">
+import type { IPagination } from '@/contracts/IPagination';
 import { useAssetsStore } from '@/stores/asset/asset_store';
 import { storeToRefs } from 'pinia';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 const { fetchAssets } = useAssetsStore();
 const { assets, meta, state } = storeToRefs(useAssetsStore());
-
-const loading = computed(() => state.value === 'LOADING');
-const itemsPerPage = computed(() => meta.value?.per_page ?? 0);
+const pageCount = computed(() => meta.value?.last_page);
+const currentPage = computed(() => meta.value?.current_page);
 const totalItems = computed(() => meta.value?.total ?? 0);
-const headers = computed(() => {
-    return [
-        {
-            title: 'Title',
-            // align: 'start',
-            // sortable: false,
-            key: 'title',
-        },
-        {
-            title: 'Type',
-            // align: 'start',
-            // sortable: false,
-            key: 'type.name',
-        },
-        {
-            title: 'Size',
-            // align: 'start',
-            // sortable: false,
-            key: 'size',
-        },
-        {
-            title: 'Address',
-            // align: 'start',
-            // sortable: false,
-            key: 'address',
-        },
-        {
-            title: 'Description',
-            // align: 'start',
-            // sortable: false,
-            key: 'description',
-        },
-        {
-            title: 'Created',
-            // align: 'start',
-            // sortable: false,
-            key: 'created_at',
-        },
-        {
-            title: 'Updated',
-            // align: 'start',
-            // sortable: false,
-            key: 'updated_at',
-        },
-    ];
+const loading = computed(() => state.value === 'LOADING');
+const gridHeight = 920;
+const headers = computed(() => [
+    {
+        title: 'Title',
+        key: 'title',
+    },
+    {
+        title: 'Type',
+        key: 'type.name',
+    },
+    {
+        title: 'Size',
+        key: 'size',
+    },
+    {
+        title: 'Address',
+        key: 'address',
+    },
+    {
+        title: 'Description',
+        key: 'description',
+    },
+    {
+        title: 'Created',
+        key: 'created_at',
+    },
+    {
+        title: 'Updated',
+        key: 'updated_at',
+    },
+]);
+const pagination = ref<IPagination>({
+    itemsPerPage: 30,
+    page: 1,
 });
+
+const onPageChange = (event: number) => {
+    pagination.value.page = event;
+    fetchAssets(pagination.value);
+};
 </script>
