@@ -1,7 +1,7 @@
 <template>
     <v-card class="me-6" elevation="4" min-width="300" max-height="600">
         <v-card-item>
-            <v-card-title>Filter</v-card-title>
+            <v-card-title>Filter Assets</v-card-title>
             <v-card-subtitle>Filter assets by asset type</v-card-subtitle>
         </v-card-item>
         <v-card-text>
