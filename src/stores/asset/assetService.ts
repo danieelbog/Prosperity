@@ -4,17 +4,13 @@ import type { IAssetData, IAssetDataList, IAssetItem } from '@/contracts/IAsset'
 import type { IEntityFilter } from '@/contracts/IEntityFilter';
 import type { IPagination } from '@/contracts/IPagination';
 import type { AxiosPromise } from 'axios';
-import { getQueryPaginationParams } from '@/utils/paginationToUrlMapper';
-import { getQueryFilterParams } from '@/utils/filterToUrlMapper';
+import { getQueryParams } from '@/utils/query-parameters/queryToUrlMapper';
 
 export const GetAssets = async (
     pagination: IPagination,
     filters: IEntityFilter,
 ): AxiosPromise<IAssetDataList> => {
-    const queryParams = [getQueryPaginationParams(pagination), getQueryFilterParams(filters)]
-        .filter((param) => param !== '')
-        .join('&');
-
+    const queryParams = getQueryParams(pagination, filters);
     const url = `${RestRoutes.GETAssets}?${queryParams}`;
     return api.get(url);
 };

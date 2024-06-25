@@ -1,4 +1,4 @@
-import { formatDate } from '@/utils/dateFormat';
+import { formatDate } from '@/utils/formatters/dateFormat';
 import type { App } from 'vue';
 
 export const i18n = {
