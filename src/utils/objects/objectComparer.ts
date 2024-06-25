@@ -1,8 +1,8 @@
-import { normalizeAsset } from './objectNormalizer';
+import { normalizeObject } from './objectNormalizer';
 
 export const hasChanges = <T extends Record<string, any>>(newObj: T, oldObj: T): boolean => {
-    const normalizedNewObj = normalizeAsset(newObj);
-    const normalizedOldObj = normalizeAsset(oldObj);
+    const normalizedNewObj = normalizeObject(newObj);
+    const normalizedOldObj = normalizeObject(oldObj);
 
     return JSON.stringify(normalizedNewObj) !== JSON.stringify(normalizedOldObj);
 };
