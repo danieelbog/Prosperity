@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { GetAssets } from './assetService';
 import type { IAssetItem, IAssetLinks, IAssetMeta } from '@/contracts/IAsset';
 import type { IPagination } from '@/contracts/IPagination';
+import type { IEntityFilter } from '@/contracts/IEntityFilter';
 
 type STATE = 'INIT' | 'LOADING' | 'READY' | 'ERROR';
 export const useAssetsStore = defineStore('assets', () => {
@@ -11,9 +12,9 @@ export const useAssetsStore = defineStore('assets', () => {
     const links = ref<IAssetLinks>();
     const state = ref<STATE>('INIT');
 
-    const fetchAssets = async (pagination: IPagination) => {
+    const fetchAssets = async (pagination: IPagination, filters: IEntityFilter) => {
         state.value = 'LOADING';
-        const response = await GetAssets(pagination);
+        const response = await GetAssets(pagination, filters);
 
         if (!response.data) {
             state.value = 'ERROR';

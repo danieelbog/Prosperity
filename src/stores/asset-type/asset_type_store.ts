@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import { GetAssetTypes } from './assetTypeService';
+import { mapAssetTypeServerDataToClientItem } from './assetTypeMapper';
 import type { IAssetTypeItem } from '@/contracts/IAssetType';
 
 export const useAssetTypesStore = defineStore('assetTypes', () => {
-    const assetTypes = ref<IAssetTypeItem[]>([]);
+    const assetTypes = ref<IAssetTypeItem[]>();
 
     const fetchAssetTypes = async () => {
         const response = await GetAssetTypes();
@@ -12,14 +13,11 @@ export const useAssetTypesStore = defineStore('assetTypes', () => {
             throw new Error('Asset types data is empty');
         }
 
-        assetTypes.value = response.data.data;
-        console.log(assetTypes.value);
+        assetTypes.value = mapAssetTypeServerDataToClientItem(response.data);
     };
 
-    const getAssetTypes = computed(() => assetTypes.value);
-
     return {
-        getAssetTypes,
+        assetTypes,
         fetchAssetTypes,
     };
 });

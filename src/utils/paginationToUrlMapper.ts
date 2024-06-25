@@ -1,6 +1,6 @@
 import type { IPagination } from '@/contracts/IPagination';
 
-export const getQueryParams = (pagination: IPagination): string => {
+export const getQueryPaginationParams = (pagination: IPagination): string => {
     const { itemsPerPage, page } = pagination;
     const params = [];
 
