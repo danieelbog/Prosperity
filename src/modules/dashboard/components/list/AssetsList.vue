@@ -6,7 +6,7 @@
                 :items-per-page="meta.per_page"
                 :page="meta.current_page"
                 :headers="headers"
-                :items="items"
+                :items="assets"
                 :items-length="totalItems"
                 :loading="loading"
                 fixed-header>
@@ -41,15 +41,16 @@
 </template>
 
 <script setup lang="ts">
-import type { IAssetMeta } from '@/contracts/IAsset';
 import { computed, type PropType } from 'vue';
-import AddressCell from '@/components/grid-cells/AddressCell.vue';
-import DateCell from '@/components/grid-cells/DateCell.vue';
+import type { IAssetItem, IAssetMeta } from '../../contracts/IAsset';
+
+import AddressCell from '@/modules/components/grid-cells/AddressCell.vue';
+import DateCell from '@/modules/components/grid-cells/DateCell.vue';
 
 const emit = defineEmits(['on-page-change', 'on-show-edit-dialog']);
 const props = defineProps({
-    items: {
-        type: Array as PropType<any[]>,
+    assets: {
+        type: Array as PropType<IAssetItem[]>,
         required: true,
     },
     meta: {

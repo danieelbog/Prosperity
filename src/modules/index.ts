@@ -7,6 +7,6 @@ export const routes: RouteRecordRaw[] = [
         meta: {
             pageTitle: 'Prosperity | Dashboard',
         },
-        component: () => import('@/views/DashboardView.vue'),
+        component: () => import('./dashboard/DashboardView.vue'),
     },
 ];

@@ -1,10 +1,10 @@
 import { api } from '@/app/api';
 import { RestRoutes } from '@/app/api/restRoutes';
-import type { IAssetData, IAssetDataList, IAssetItem } from '@/contracts/IAsset';
-import type { IEntityFilter } from '@/contracts/IEntityFilter';
-import type { IPagination } from '@/contracts/IPagination';
-import type { AxiosPromise } from 'axios';
 import { getQueryParams } from '@/utils/query-parameters/queryToUrlMapper';
+import type { AxiosPromise } from 'axios';
+import type { IEntityFilter } from '../../contracts/IEntityFilter';
+import type { IAssetData, IAssetDataList, IAssetItem } from '../../contracts/IAsset';
+import type { IPagination } from '../../contracts/IPagination';
 
 export const GetAssets = async (
     pagination: IPagination,

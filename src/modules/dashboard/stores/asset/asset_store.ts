@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { GetAssets } from './assetService';
-import type { IAssetItem, IAssetLinks, IAssetMeta } from '@/contracts/IAsset';
-import type { IPagination } from '@/contracts/IPagination';
-import type { IEntityFilter } from '@/contracts/IEntityFilter';
+import type { IAssetItem, IAssetLinks, IAssetMeta } from '../../contracts/IAsset';
+import type { IPagination } from '../../contracts/IPagination';
+import type { IEntityFilter } from '../../contracts/IEntityFilter';
 
 type STATE = 'INIT' | 'LOADING' | 'READY' | 'ERROR';
 export const useAssetsStore = defineStore('assets', () => {

@@ -14,10 +14,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, type PropType } from 'vue';
-import type { IAssetItem } from '@/contracts/IAsset';
-const emit = defineEmits(['editItem', 'hideEditDialog']);
+import { type PropType } from 'vue';
+import type { IAssetItem } from '../../contracts/IAsset';
 
+const emit = defineEmits(['editItem', 'hideEditDialog']);
 const props = defineProps({
     showEditDialog: {
         type: Boolean,
@@ -32,8 +32,4 @@ const props = defineProps({
 const hideEditDialog = () => {
     emit('hideEditDialog');
 };
-
-onMounted(() => {
-    console.log(props.asset);
-});
 </script>

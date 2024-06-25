@@ -27,9 +27,9 @@
     </v-card>
 </template>
 <script setup lang="ts">
-import type { IAssetTypeItem } from '@/contracts/IAssetType';
 import { ref, watch, type PropType } from 'vue';
-import type { IEntityFilter } from '@/contracts/IEntityFilter';
+import type { IAssetTypeItem } from '../../contracts/IAssetType';
+import type { IEntityFilter } from '../../contracts/IEntityFilter';
 
 const emit = defineEmits(['on-filter-change']);
 const props = defineProps({

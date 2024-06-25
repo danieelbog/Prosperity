@@ -11,7 +11,7 @@ import * as directives from 'vuetify/directives';
 
 import { i18n } from '@/app/plugins/i18n';
 
-import App from './App.vue';
+import App from './modules/app/App.vue';
 import router from '@/app/router';
 
 const app = createApp(App);

@@ -1,4 +1,4 @@
-import type { IAssetTypeData, IAssetTypeItem } from '@/contracts/IAssetType';
+import type { IAssetTypeData, IAssetTypeItem } from '../../contracts/IAssetType';
 
 export const mapAssetTypeServerDataToClientItem = (
     dataFromServer: IAssetTypeData,

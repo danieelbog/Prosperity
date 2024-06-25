@@ -7,8 +7,8 @@
                 @on-filter-change="onFilterChange" />
         </div>
         <div v-if="assets && headers && meta">
-            <ItemsListWithActions
-                :items="assets"
+            <AssetsList
+                :assets="assets"
                 :meta="meta"
                 :headers="headers"
                 :state="state"
@@ -17,11 +17,11 @@
                 <template #actions-cell="{ item }">
                     <v-icon class="me-2" @click="showEditDialog(item)">edit</v-icon>
                 </template>
-            </ItemsListWithActions>
+            </AssetsList>
         </div>
     </div>
     <div v-if="assetToEdit">
-        <EditAssetDialog
+        <AssetEditDialog
             :show-edit-dialog="editDialogIsVisible"
             :asset="assetToEdit"
             @hide-edit-dialog="hideEditDialog" />
@@ -31,16 +31,17 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
-import { useAssetsStore } from '@/stores/asset/asset_store';
-import { useAmenitiesStore } from '@/stores/amenity/amenity_store';
-import { useAssetTypesStore } from '@/stores/asset-type/asset_type_store';
-import type { IPagination } from '@/contracts/IPagination';
-import type { IAssetItem } from '@/contracts/IAsset';
-import type { IEntityFilter } from '@/contracts/IEntityFilter';
 
-import EditAssetDialog from '@/components/dialogs/EditAssetDialog.vue';
-import AssetFilter from '@/components/asset-filter/AssetFilter.vue';
-import ItemsListWithActions from '@/components/items-list/ItemsListWithActions.vue';
+import { useAssetsStore } from './stores/asset/asset_store';
+import { useAmenitiesStore } from './stores/amenity/amenity_store';
+import { useAssetTypesStore } from './stores/asset-type/asset_type_store';
+import type { IEntityFilter } from './contracts/IEntityFilter';
+import type { IPagination } from './contracts/IPagination';
+import type { IAssetItem } from './contracts/IAsset';
+
+import AssetEditDialog from './components/edit/AssetEditDialog.vue';
+import AssetFilter from './components/filter/AssetFilter.vue';
+import AssetsList from './components/list/AssetsList.vue';
 
 const { fetchAssets } = useAssetsStore();
 const { fetchAmenities } = useAmenitiesStore();

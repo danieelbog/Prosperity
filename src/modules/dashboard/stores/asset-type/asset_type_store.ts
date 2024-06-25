@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { GetAssetTypes } from './assetTypeService';
 import { mapAssetTypeServerDataToClientItem } from './assetTypeMapper';
-import type { IAssetTypeItem } from '@/contracts/IAssetType';
+import type { IAssetTypeItem } from '../../contracts/IAssetType';
 
 export const useAssetTypesStore = defineStore('assetTypes', () => {
     const assetTypes = ref<IAssetTypeItem[]>();
