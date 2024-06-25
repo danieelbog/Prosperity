@@ -17,10 +17,10 @@
                         :postal-code="item.postal_code" />
                 </template>
                 <template v-slot:item.created_at="{ item }">
-                    <DateCell :date="new Date(item.available_from)" />
+                    <DateCell :date="item.available_from" />
                 </template>
                 <template v-slot:item.updated_at="{ item }">
-                    <DateCell :date="new Date(item.updated_at)" />
+                    <DateCell :date="item.updated_at" />
                 </template>
                 <template v-slot:bottom>
                     <div class="d-flex flex-row-reverse pt-2">

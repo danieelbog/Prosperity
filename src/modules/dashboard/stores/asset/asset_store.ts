@@ -4,6 +4,7 @@ import { GetAssets } from './assetService';
 import type { IAssetItem, IAssetLinks, IAssetMeta } from '../../contracts/IAsset';
 import type { IPagination } from '../../contracts/IPagination';
 import type { IEntityFilter } from '../../contracts/IEntityFilter';
+import { mapAssetListServerDataToClientItem } from './assetMapper';
 
 type STATE = 'INIT' | 'LOADING' | 'READY' | 'ERROR';
 export const useAssetsStore = defineStore('assets', () => {
@@ -21,7 +22,7 @@ export const useAssetsStore = defineStore('assets', () => {
             throw new Error('Assets data is empty');
         }
 
-        assets.value = response.data.data;
+        assets.value = mapAssetListServerDataToClientItem(response.data);
         meta.value = response.data.meta;
         links.value = response.data.links;
         state.value = 'READY';
