@@ -16,9 +16,12 @@
                 v-model="selectedAssetType">
             </v-select>
             <div class="overflow-auto" style="max-height: 400px">
-                <div v-for="amenity in props.amenities" :key="amenity">
-                    <v-checkbox :label="amenity" :value="amenity" v-model="selectedAmmenities" />
-                </div>
+                <v-checkbox
+                    v-for="amenity in props.amenities"
+                    :key="amenity"
+                    :label="amenity"
+                    :value="amenity"
+                    v-model="selectedAmmenities" />
             </div>
         </v-card-text>
     </v-card>
