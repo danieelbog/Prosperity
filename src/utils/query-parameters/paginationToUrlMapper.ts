@@ -1,4 +1,4 @@
-import type { IPagination } from '@/contracts/IPagination';
+import type { IPagination } from '@/modules/dashboard/contracts/IPagination';
 
 export const getQueryPaginationParams = (pagination: IPagination): string => {
     const { itemsPerPage, page } = pagination;

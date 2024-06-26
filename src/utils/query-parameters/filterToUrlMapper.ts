@@ -1,4 +1,4 @@
-import type { IEntityFilter } from '@/contracts/IEntityFilter';
+import type { IEntityFilter } from '@/modules/dashboard/contracts/IEntityFilter';
 
 export const getQueryFilterParams = (filters: IEntityFilter): string => {
     const params = [];

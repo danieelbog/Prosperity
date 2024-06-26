@@ -1,10 +1,14 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { GetAssets } from './assetService';
+import { GetAssets, PutAsset } from './assetService';
 import type { IAssetItem, IAssetLinks, IAssetMeta } from '../../contracts/IAsset';
 import type { IPagination } from '../../contracts/IPagination';
 import type { IEntityFilter } from '../../contracts/IEntityFilter';
-import { mapAssetListServerDataToClientItem } from './assetMapper';
+import {
+    mapAssetItemToUpdateAssetItem,
+    mapAssetListServerDataToClientItem,
+    mapAssetServerDataToClientItem,
+} from './assetMapper';
 
 type STATE = 'INIT' | 'LOADING' | 'READY' | 'ERROR';
 export const useAssetsStore = defineStore('assets', () => {
@@ -28,5 +32,29 @@ export const useAssetsStore = defineStore('assets', () => {
         state.value = 'READY';
     };
 
-    return { assets, meta, state, fetchAssets };
+    const updateAsset = async (assetToUpdate: IAssetItem) => {
+        state.value = 'LOADING';
+
+        const response = await PutAsset(
+            assetToUpdate.uuid,
+            mapAssetItemToUpdateAssetItem(assetToUpdate),
+        );
+
+        if (!response) {
+            state.value = 'ERROR';
+            throw new Error('Asset not updated');
+        }
+
+        const updatedAsset = mapAssetServerDataToClientItem(response.data);
+
+        const existingIndex =
+            assets.value?.findIndex((asset) => asset.uuid === assetToUpdate.uuid) ?? -1;
+        if (existingIndex !== -1 && assets.value) {
+            assets.value.splice(existingIndex, 1, updatedAsset);
+        }
+
+        state.value = 'READY';
+    };
+
+    return { assets, meta, state, fetchAssets, updateAsset };
 });

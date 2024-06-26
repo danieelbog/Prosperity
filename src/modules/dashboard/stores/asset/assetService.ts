@@ -3,7 +3,7 @@ import { RestRoutes } from '@/app/api/restRoutes';
 import { getQueryParams } from '@/utils/query-parameters/queryToUrlMapper';
 import type { AxiosPromise } from 'axios';
 import type { IEntityFilter } from '../../contracts/IEntityFilter';
-import type { IAssetDataList, IAssetItem } from '../../contracts/IAsset';
+import type { IAssetData, IAssetDataList, IAssetItemUpdate } from '../../contracts/IAsset';
 import type { IPagination } from '../../contracts/IPagination';
 
 export const GetAssets = async (
@@ -15,6 +15,9 @@ export const GetAssets = async (
     return api.get(url);
 };
 
-export const PutAsset = async (property: IAssetItem): AxiosPromise<void> => {
-    return api.post(`${RestRoutes.PUTAsset}/${property.uuid}`, property);
+export const PutAsset = async (
+    assetUpdateId: string,
+    assetUpdate: IAssetItemUpdate,
+): AxiosPromise<IAssetData> => {
+    return api.put(`${RestRoutes.PUTAsset}/${assetUpdateId}`, assetUpdate);
 };

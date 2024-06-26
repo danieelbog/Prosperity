@@ -7,9 +7,8 @@
         <v-card-text>
             <v-select
                 label="Select Asset Type"
-                variant="outlined"
                 item-title="name"
-                item-value="value"
+                item-value="uuid"
                 return-object
                 :items="props.assetTypes"
                 single-line

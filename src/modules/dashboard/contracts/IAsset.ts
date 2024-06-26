@@ -1,5 +1,23 @@
 import type { IAssetTypeItem } from './IAssetType';
 
+export interface IAssetItemUpdate {
+    amenities: string[];
+    bathrooms: number;
+    bedrooms: number;
+    description: string;
+    floor: number;
+    latitude: string;
+    longitude: string;
+    postal_code: string;
+    price: string;
+    size: number;
+    street: string;
+    street_number: string;
+    title: string;
+    type_id: string;
+    available_from: string;
+}
+
 export interface IAssetItem {
     uuid: string;
     amenities: string[];
@@ -47,8 +65,6 @@ export interface IAssetMeta {
 
 export interface IAssetData {
     data: IAssetItem;
-    links: IAssetLinks;
-    meta: IAssetMeta;
 }
 
 export interface IAssetDataList {
