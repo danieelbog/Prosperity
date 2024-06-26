@@ -62,9 +62,9 @@ const headers = computed(() => [
     { title: 'Size', key: 'size' },
     { title: 'Address', key: 'address' },
     { title: 'Description', key: 'description' },
-    { title: 'Created', key: 'created_at' },
-    { title: 'Updated', key: 'updated_at' },
-    { title: 'Actions', key: 'actions' },
+    { title: 'Created', key: 'created_at', width: 130 },
+    { title: 'Updated', key: 'updated_at', width: 130 },
+    { title: 'Actions', key: 'actions', width: 10 },
 ]);
 
 const onPageChange = (event: number) => {
