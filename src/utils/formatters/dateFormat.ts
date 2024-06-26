@@ -1,13 +1,7 @@
 export const formatDate = (date: Date) => {
-    const options: Intl.DateTimeFormatOptions = {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true,
-        timeZone: 'UTC',
-    };
-    return date.toLocaleString('en-US', options);
+    const year = date.getFullYear();
+    const month = `0${date.getMonth() + 1}`.slice(-2);
+    const day = `0${date.getDate()}`.slice(-2);
+
+    return `${year}-${month}-${day}`;
 };
