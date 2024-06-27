@@ -41,15 +41,15 @@ import { storeToRefs } from 'pinia';
 import { useAssetsStore } from './stores/asset/asset_store';
 import { useAmenitiesStore } from './stores/amenity/amenity_store';
 import { useAssetTypesStore } from './stores/asset-type/asset_type_store';
+import { useFeedbackStore } from '../app/stores/feedback-store/feedback_store';
 import type { IEntityFilter } from './contracts/IEntityFilter';
 import type { IPagination } from './contracts/IPagination';
 import type { IAssetItem } from './contracts/IAsset';
 
+import ListWithFilterWrapper from '@/components/layouts/wrappers/ListWithFilterWrapper.vue';
 import AssetEditDialog from './components/edit/AssetEditDialog.vue';
 import AssetFilter from './components/filter/AssetFilter.vue';
 import AssetsList from './components/list/AssetsList.vue';
-import ListWithFilterWrapper from '../components/layouts/wrappers/ListWithFilterWrapper.vue';
-import { useFeedbackStore } from '../app/stores/feedback-store/feedback_store';
 
 const { fetchAssets } = useAssetsStore();
 const { fetchAmenities } = useAmenitiesStore();

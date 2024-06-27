@@ -44,8 +44,8 @@
 import { computed, type PropType } from 'vue';
 import type { IAssetItem, IAssetMeta } from '../../contracts/IAsset';
 
-import AddressCell from '@/modules/components/grid-cells/AddressCell.vue';
-import DateCell from '@/modules/components/grid-cells/DateCell.vue';
+import AddressCell from '@/components/grid-cells/AddressCell.vue';
+import DateCell from '@/components/grid-cells/DateCell.vue';
 
 const emit = defineEmits(['on-page-change', 'on-show-edit-dialog']);
 const props = defineProps({
