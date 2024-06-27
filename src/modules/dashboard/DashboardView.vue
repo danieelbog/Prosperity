@@ -49,10 +49,12 @@ import AssetEditDialog from './components/edit/AssetEditDialog.vue';
 import AssetFilter from './components/filter/AssetFilter.vue';
 import AssetsList from './components/list/AssetsList.vue';
 import ListWithFilterWrapper from '../components/layouts/wrappers/ListWithFilterWrapper.vue';
+import { useFeedbackStore } from '../app/stores/feedback-store/feedback_store';
 
 const { fetchAssets } = useAssetsStore();
 const { fetchAmenities } = useAmenitiesStore();
 const { fetchAssetTypes } = useAssetTypesStore();
+const { showFeedback } = useFeedbackStore();
 const { assets, meta, state } = storeToRefs(useAssetsStore());
 const { amenities } = storeToRefs(useAmenitiesStore());
 const { assetTypes } = storeToRefs(useAssetTypesStore());
@@ -96,11 +98,15 @@ const onFilterChange = (newFilters: IEntityFilter) => {
 };
 
 const loadInitialData = async () => {
-    await Promise.all([
-        fetchAssets(pagination.value, filters.value),
-        fetchAmenities(),
-        fetchAssetTypes(),
-    ]);
+    try {
+        await Promise.all([
+            fetchAssets(pagination.value, filters.value),
+            fetchAmenities(),
+            fetchAssetTypes(),
+        ]);
+    } catch (error) {
+        showFeedback('Error loading Initial data, contact your administrator!', 'red');
+    }
 };
 
 watch(

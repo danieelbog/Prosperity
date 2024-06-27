@@ -25,6 +25,7 @@ import { ref, type PropType } from 'vue';
 import type { IAssetItem } from '../../contracts/IAsset';
 import { useAssetsStore } from '../../stores/asset/asset_store';
 import AssetEditForm from './edit-form/AssetEditForm.vue';
+import { useFeedbackStore } from '@/modules/app/stores/feedback-store/feedback_store';
 
 const emit = defineEmits(['hide-edit-dialog']);
 const props = defineProps({
@@ -41,15 +42,17 @@ const props = defineProps({
 const { updateAsset } = useAssetsStore();
 const saveIsDisabled = ref(true);
 const assetToUpdate = ref<IAssetItem | null>(null);
+const { showFeedback } = useFeedbackStore();
 
 const onUpdateAsset = async () => {
     if (!assetToUpdate.value) return;
 
     try {
         await updateAsset(assetToUpdate.value);
+        showFeedback('Asset updated succesfully!', 'green');
         emit('hide-edit-dialog');
     } catch (error) {
-        console.error('Error updating asset:', error);
+        showFeedback('Error updating asset, please try again!', 'red');
     }
 };
 
