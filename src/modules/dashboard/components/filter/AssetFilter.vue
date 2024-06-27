@@ -12,8 +12,7 @@
                 return-object
                 :items="props.assetTypes"
                 single-line
-                v-model="selectedAssetType">
-            </v-select>
+                v-model="selectedAssetType" />
             <div class="overflow-auto" style="max-height: 400px">
                 <v-checkbox
                     v-for="amenity in props.amenities"
