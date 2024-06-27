@@ -1,23 +1,15 @@
 <template>
     <v-sheet>
-        <v-form>
+        <v-form :model-value="formIsValid" @update:modelValue="onFormValidation">
             <v-container>
                 <h3 class="text-grey mb-3">General Info</h3>
                 <v-row>
                     <v-col cols="12" md="6">
-                        <v-text-field
-                            v-model="localAsset.title"
-                            :counter="10"
-                            label="Title"
-                            required>
+                        <v-text-field v-model="localAsset.title" label="Title" :rules="titleRules">
                         </v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
-                        <v-text-field
-                            v-model="localAsset.description"
-                            :counter="10"
-                            label="Description"
-                            required>
+                        <v-text-field v-model="localAsset.description" label="Description" required>
                         </v-text-field>
                     </v-col>
                 </v-row>
@@ -29,8 +21,7 @@
                             prefix="€"
                             v-model="localAsset.price"
                             :min="0"
-                            label="Price"
-                            required />
+                            label="Price" />
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-number-input
@@ -38,31 +29,27 @@
                             control-variant="stacked"
                             v-model="localAsset.size"
                             :min="0"
-                            label="Size"
-                            required />
+                            label="Size" />
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-number-input
                             control-variant="stacked"
                             v-model="localAsset.bathrooms"
                             :min="0"
-                            label="Bathrooms"
-                            required />
+                            label="Bathrooms" />
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-number-input
                             control-variant="stacked"
                             v-model="localAsset.bedrooms"
                             :min="0"
-                            label="Bedrooms"
-                            required />
+                            label="Bedrooms" />
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-number-input
                             control-variant="stacked"
                             v-model="localAsset.floor"
-                            label="Floor"
-                            required />
+                            label="Floor" />
                     </v-col>
                     <v-col cols="12" md="6">
                         <v-select
@@ -80,8 +67,7 @@
                             v-model="localAsset.amenities"
                             :items="amenities"
                             label="Amenities"
-                            multiple
-                            required>
+                            multiple>
                         </v-select>
                     </v-col>
                 </v-row>
@@ -114,11 +100,17 @@
                         </v-date-input>
                     </v-col>
                     <v-col cols="12" md="6">
-                        <v-text-field v-model="localAsset.latitude" label="Latitude" required>
+                        <v-text-field
+                            v-model="localAsset.latitude"
+                            label="Latitude"
+                            :rules="latitudeValidationRules">
                         </v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
-                        <v-text-field v-model="localAsset.longitude" label="Longitude" required>
+                        <v-text-field
+                            v-model="localAsset.longitude"
+                            label="Longitude"
+                            :rules="longitudeValidationRules">
                         </v-text-field>
                     </v-col>
                 </v-row>
@@ -128,50 +120,45 @@
 </template>
 
 <script setup lang="ts">
-import type { IAssetItem } from '@/modules/dashboard/contracts/IAsset';
-import { hasChanges } from '@/utils/objects/objectComparer';
-import { defineProps, defineEmits, ref, watch } from 'vue';
+import { defineProps, defineEmits, ref, type PropType, watch } from 'vue';
 import { VNumberInput } from 'vuetify/labs/VNumberInput';
 import { VDateInput } from 'vuetify/labs/VDateInput';
-import { storeToRefs } from 'pinia';
-import { useAmenitiesStore } from '@/modules/dashboard/stores/amenity/amenity_store';
-import { useAssetTypesStore } from '@/modules/dashboard/stores/asset-type/asset_type_store';
+import * as stringValidator from '@/utils/validation-rules/stringValidations';
+import type { IAssetTypeItem } from '@/modules/dashboard/contracts/IAssetType';
+import type { IAssetItem } from '@/modules/dashboard/contracts/IAsset';
 
 const emit = defineEmits(['form-is-valid']);
 const props = defineProps({
     asset: {
-        type: Object as () => IAssetItem,
+        type: Object as PropType<IAssetItem>,
+        required: true,
+    },
+    amenities: {
+        type: Array as PropType<string[]>,
+        required: true,
+    },
+    assetTypes: {
+        type: Array as PropType<IAssetTypeItem[]>,
         required: true,
     },
 });
 
-const { amenities } = storeToRefs(useAmenitiesStore());
-const { assetTypes } = storeToRefs(useAssetTypesStore());
+const localAsset = ref(props.asset);
+const formIsValid = ref(false);
 
-const getInitialAsset = (): IAssetItem => {
-    if (!assetTypes.value) return props.asset;
+const titleRules = stringValidator.requiredField('Title');
+const latitudeValidationRules = stringValidator.latitudeRules();
+const longitudeValidationRules = stringValidator.longitudeRules();
 
-    const assetType = assetTypes.value.find(
-        (assetType) => assetType.uuid === props.asset.type.uuid,
-    );
-
-    return {
-        ...props.asset,
-        type: {
-            ...props.asset.type,
-            value: assetType?.value,
-        },
-    };
+const onFormValidation = (event: any) => {
+    formIsValid.value = event;
+    emit('form-is-valid', formIsValid.value ? localAsset.value : null);
 };
-
-const localInitialAsset = getInitialAsset();
-const localAsset = ref({ ...localInitialAsset });
-const initialAsset = JSON.parse(JSON.stringify(getInitialAsset()));
 
 watch(
     localAsset,
     (newLocalAsset) => {
-        emit('form-is-valid', hasChanges(newLocalAsset, initialAsset) ? newLocalAsset : null);
+        emit('form-is-valid', formIsValid.value ? newLocalAsset : null);
     },
     { deep: true },
 );
