@@ -4,11 +4,7 @@ import { GetAssets, PutAsset } from './assetService';
 import type { IAssetItem, IAssetLinks, IAssetMeta } from '../../contracts/IAsset';
 import type { IPagination } from '../../contracts/IPagination';
 import type { IEntityFilter } from '../../contracts/IEntityFilter';
-import {
-    mapAssetItemToUpdateAssetItem,
-    mapAssetListServerDataToClientItem,
-    mapAssetServerDataToClientItem,
-} from './assetMapper';
+import { mapAssetItemToUpdateAssetItem, mapAssetListServerDataToClientItem } from './assetMapper';
 
 type STATE = 'INIT' | 'LOADING' | 'READY' | 'ERROR';
 export const useAssetsStore = defineStore('assets', () => {
@@ -17,8 +13,15 @@ export const useAssetsStore = defineStore('assets', () => {
     const links = ref<IAssetLinks>();
     const state = ref<STATE>('INIT');
 
-    const fetchAssets = async (pagination: IPagination, filters: IEntityFilter) => {
+    const lastPagination = ref<IPagination>();
+    const lastFilters = ref<IEntityFilter>();
+
+    const fetchAssets = async (pagination?: IPagination, filters?: IEntityFilter) => {
         state.value = 'LOADING';
+
+        if (!pagination) pagination = { itemsPerPage: 30, page: 1 };
+        if (!filters) filters = {};
+
         const response = await GetAssets(pagination, filters);
 
         if (!response.data) {
@@ -29,6 +32,8 @@ export const useAssetsStore = defineStore('assets', () => {
         assets.value = mapAssetListServerDataToClientItem(response.data);
         meta.value = response.data.meta;
         links.value = response.data.links;
+        lastPagination.value = pagination;
+        lastFilters.value = filters;
         state.value = 'READY';
     };
 
@@ -45,15 +50,7 @@ export const useAssetsStore = defineStore('assets', () => {
             throw new Error('Asset not updated');
         }
 
-        const updatedAsset = mapAssetServerDataToClientItem(response.data);
-
-        const existingIndex =
-            assets.value?.findIndex((asset) => asset.uuid === assetToUpdate.uuid) ?? -1;
-        if (existingIndex !== -1 && assets.value) {
-            assets.value.splice(existingIndex, 1, updatedAsset);
-        }
-
-        state.value = 'READY';
+        await fetchAssets(lastPagination.value, lastFilters.value);
     };
 
     return { assets, meta, state, fetchAssets, updateAsset };
