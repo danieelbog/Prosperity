@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useFeedbackStore } from '../stores/feedback_store';
+import { useFeedbackStore } from '../stores/feedback-store/feedback_store';
 import { storeToRefs } from 'pinia';
 
 const { hideFeedback } = useFeedbackStore();

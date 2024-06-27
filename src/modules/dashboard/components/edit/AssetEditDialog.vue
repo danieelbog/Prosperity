@@ -21,16 +21,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, type PropType } from 'vue';
 import type { IAssetItem } from '../../contracts/IAsset';
 import { useAssetsStore } from '../../stores/asset/asset_store';
 import AssetEditForm from './edit-form/AssetEditForm.vue';
 
 const emit = defineEmits(['hide-edit-dialog']);
-const props = defineProps<{
-    showEditDialog: boolean;
-    asset: IAssetItem;
-}>();
+const props = defineProps({
+    showEditDialog: {
+        type: Boolean,
+        required: true,
+    },
+    asset: {
+        type: Object as PropType<IAssetItem>,
+        required: true,
+    },
+});
 
 const { updateAsset } = useAssetsStore();
 const saveIsDisabled = ref(true);

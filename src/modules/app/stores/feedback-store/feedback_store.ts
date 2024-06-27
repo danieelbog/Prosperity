@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
-import type { IFeedback, VARIANT } from '../contracts/IFeedback';
+import type { IFeedback, VARIANT } from '../../contracts/IFeedback';
 
 export const useFeedbackStore = defineStore('feedback', () => {
     const feedbacks = ref<IFeedback[]>([]);
