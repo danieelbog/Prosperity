@@ -94,8 +94,6 @@ const onFilterChange = async (newFilters: IEntityFilter) => {
 };
 
 const onSortChange = async (newSortBy: ISort[]) => {
-    console.log(newSortBy);
-
     pagination.value.page = 1;
     sortBy.value = newSortBy;
     await fetchAssets(pagination.value, filters.value, sortBy.value);
