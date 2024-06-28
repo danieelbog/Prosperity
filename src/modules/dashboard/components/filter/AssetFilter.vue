@@ -12,6 +12,7 @@
                 return-object
                 :items="props.assetTypes"
                 single-line
+                clearable
                 v-model="selectedAssetType" />
             <div class="overflow-auto" style="max-height: 400px">
                 <v-checkbox
