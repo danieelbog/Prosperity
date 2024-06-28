@@ -158,8 +158,6 @@ const onFormValidation = (event: any) => {
 watch(
     localAsset,
     (newLocalAsset) => {
-        console.log(newLocalAsset);
-
         emit('form-is-valid', formIsValid.value ? newLocalAsset : null);
     },
     { deep: true },
