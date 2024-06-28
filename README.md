@@ -1,45 +1,57 @@
-# prosperity
+<br />
+<div align="center">
+  <a href="https://github.com/danieelbog/tha-ships/tree/main/tha-ships">
+    <img src="https://robohash.org/13" alt="Logo" width="80" height="80">
+  </a>
 
-This template should help get you started developing with Vue 3 in Vite.
+  <h3 align="center">PROSPERITY</h3>
 
-## Recommended IDE Setup
+  ### [Live Demo](https://propsperity-gr.netlify.app/)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+  <p align="center">
+    A small project demonstrating some basic Web development features. Using Vue, Typescript and Vuetify (HURRAY)
+    <br />
+    <a href="https://github.com/danieelbog/Prosperity/blob/main/README.md"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    ·
+    <a href="https://github.com/danieelbog/Prosperity/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/danieelbog/Prosperity/issues">Request Feature</a>
+  </p>
+</div>
 
-## Type Support for `.vue` Imports in TS
+<div>
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+  ## Prosperity
 
-## Customize configuration
+  Prosperity is a feature-rich application designed with the following capabilities:
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+  ### Grid System with Pagination, Filtering, and Sorting
 
-## Project Setup
+  ![Grid System](https://github.com/danieelbog/Prosperity/assets/54244808/caeccc3e-bc9e-43bc-9639-72b70d2a6f47)
 
-```sh
-npm install
-```
+  ### Edit Functionality
 
-### Compile and Hot-Reload for Development
+  Clicking the edit button inside the grid opens an edit dialog:
 
-```sh
-npm run dev
-```
+  ![Edit Dialog](https://github.com/danieelbog/Prosperity/assets/54244808/a6a61083-740e-4bbd-ba1f-c529fd2932f2)
 
-### Type-Check, Compile and Minify for Production
+  ### Validation and Save Feature
 
-```sh
-npm run build
-```
+  Title, Latitude, and Longitude fields are validated. Upon correct inputs and detecting changes, the save button is enabled:
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+  ![Validation and Save](https://github.com/danieelbog/Prosperity/assets/54244808/d9774533-aee1-413b-9c04-381faa7ca51c)
 
-```sh
-npm run test:unit
-```
+  ### Toast Notification and Data Reload
 
-### Lint with [ESLint](https://eslint.org/)
+  After saving, a toaster notification appears, and the grid reloads with updated data:
 
-```sh
-npm run lint
-```
+  ![Toaster Notification](https://github.com/danieelbog/Prosperity/assets/54244808/41aa3f68-e8c9-43a7-b38e-e5f436a66043)
+
+  Enjoy exploring Prosperity! ^_^
+
+  PS: Did you see the page live? Don't miss it :) 
+  ### [Live Demo](https://propsperity-gr.netlify.app/)
+
+</div>
