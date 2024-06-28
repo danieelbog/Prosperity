@@ -49,9 +49,16 @@
 
   ![Toaster Notification](https://github.com/danieelbog/Prosperity/assets/54244808/41aa3f68-e8c9-43a7-b38e-e5f436a66043)
 
+  ## Storybook for presenting components and testing
+  Prosperity is utilizing the latest trends, so I created stories, that are used for presentation and testing.
+
+  ## Testing
+  There are many unit tests created for my main functions.
+  There is accessibility testing for my components.
+  There is snapshot tesintg for my components.  
+  
   Enjoy exploring Prosperity! ^_^
 
-  PS: Did you see the page live? Don't miss it :) 
-  ### [Live Demo](https://propsperity-gr.netlify.app/)
-
+  ## PS: Did you see the page live? Don't miss it :) [Live Demo](https://propsperity-gr.netlify.app/)
+  
 </div>
