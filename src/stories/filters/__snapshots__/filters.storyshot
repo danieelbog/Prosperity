@@ -1,0 +1,97 @@
+<div>
+  
+  <div
+    class="d-flex justify-center my-6 mx-6"
+  >
+    
+    <v-card
+      class="me-6"
+      elevation="4"
+      max-height="600"
+      min-width="300"
+    >
+      <v-card-item>
+        <v-card-title>
+          Filter Assets
+        </v-card-title>
+        <v-card-subtitle>
+          Filter assets by asset type
+        </v-card-subtitle>
+      </v-card-item>
+      <v-card-text>
+        <v-select
+          clearable=""
+          item-title="name"
+          item-value="uuid"
+          items="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
+          label="Select Asset Type"
+          return-object=""
+          single-line=""
+        />
+        <div
+          class="overflow-auto"
+          style="max-height: 400px;"
+        >
+          
+          <v-checkbox
+            label="Elevator"
+            modelvalue=""
+            value="Elevator"
+          />
+          <v-checkbox
+            label="Balcony"
+            modelvalue=""
+            value="Balcony"
+          />
+          <v-checkbox
+            label="Air Conditioning"
+            modelvalue=""
+            value="Air Conditioning"
+          />
+          <v-checkbox
+            label="Microwave"
+            modelvalue=""
+            value="Microwave"
+          />
+          <v-checkbox
+            label="Refrigerator"
+            modelvalue=""
+            value="Refrigerator"
+          />
+          <v-checkbox
+            label="Dishwasher"
+            modelvalue=""
+            value="Dishwasher"
+          />
+          <v-checkbox
+            label="Hair Dryer"
+            modelvalue=""
+            value="Hair Dryer"
+          />
+          <v-checkbox
+            label="Iron"
+            modelvalue=""
+            value="Iron"
+          />
+          <v-checkbox
+            label="WiFi"
+            modelvalue=""
+            value="WiFi"
+          />
+          <v-checkbox
+            label="Nespresso"
+            modelvalue=""
+            value="Nespresso"
+          />
+          
+        </div>
+      </v-card-text>
+    </v-card>
+    
+    
+    
+  </div>
+  
+  
+  
+</div>

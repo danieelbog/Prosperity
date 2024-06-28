@@ -120,7 +120,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, ref, type PropType, watch } from 'vue';
+import { ref, type PropType, watch } from 'vue';
 import { VNumberInput } from 'vuetify/labs/VNumberInput';
 import { VDateInput } from 'vuetify/labs/VDateInput';
 import * as stringValidator from '@/utils/validation-rules/stringValidations';
@@ -158,6 +158,8 @@ const onFormValidation = (event: any) => {
 watch(
     localAsset,
     (newLocalAsset) => {
+        console.log(newLocalAsset);
+
         emit('form-is-valid', formIsValid.value ? newLocalAsset : null);
     },
     { deep: true },

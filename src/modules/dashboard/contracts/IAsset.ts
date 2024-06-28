@@ -25,8 +25,8 @@ export interface IAssetItem {
     bedrooms: number;
     description: string;
     floor: number;
-    latitude: string;
-    longitude: string;
+    latitude?: string;
+    longitude?: string;
     postal_code: string;
     price: string;
     size: number;

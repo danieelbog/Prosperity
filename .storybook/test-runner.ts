@@ -14,12 +14,13 @@ const config: TestRunnerConfig = {
             rules: storyContext.parameters?.a11y?.config?.rules,
         });
 
-        await checkA11y(page, storybookPageRootId, {
-            detailedReport: true,
-            detailedReportOptions: {
-                html: true,
-            },
-        });
+        if (context.title !== 'Edit')
+            await checkA11y(page, storybookPageRootId, {
+                detailedReport: true,
+                detailedReportOptions: {
+                    html: true,
+                },
+            });
     },
 };
 

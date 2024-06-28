@@ -6,18 +6,13 @@ const config: StorybookConfig = {
         '@storybook/addon-links',
         '@storybook/addon-essentials',
         '@storybook/addon-interactions',
-        '@storybook/addon-a11y',
-        '@storybook/addon-coverage',
     ],
     build: {
         test: {
             disabledAddons: ['@storybook/addon-docs', '@storybook/addon-essentials/docs'],
         },
     },
-    framework: {
-        name: '@storybook/vue3-vite',
-        options: {},
-    },
+    framework: '@storybook/vue3-vite',
     docs: {
         autodocs: 'tag',
     },
