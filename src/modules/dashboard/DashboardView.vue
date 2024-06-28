@@ -15,8 +15,10 @@
                     :meta="meta"
                     :headers="headers"
                     :state="state"
+                    :sort-by="sortBy"
                     @on-page-change="onPageChange"
-                    @on-fetch-items="fetchAssets">
+                    @on-fetch-items="fetchAssets"
+                    @on-sort-change="onSortChange">
                     <template #actions-cell="{ item }">
                         <v-icon class="me-2" @click="showEditDialog(item)">edit</v-icon>
                     </template>
@@ -35,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount, ref, watch } from 'vue';
+import { computed, onBeforeMount, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import { useAssetsStore } from './stores/asset/asset_store';
@@ -45,6 +47,7 @@ import { useFeedbackStore } from '../app/stores/feedback-store/feedback_store';
 import type { IEntityFilter } from './contracts/IEntityFilter';
 import type { IPagination } from './contracts/IPagination';
 import type { IAssetItem } from './contracts/IAsset';
+import type { ISort } from './contracts/ISort';
 
 import ListWithFilterWrapper from '@/components/layouts/wrappers/ListWithFilterWrapper.vue';
 import AssetEditDialog from './components/edit/AssetEditDialog.vue';
@@ -60,27 +63,42 @@ const { amenities } = storeToRefs(useAmenitiesStore());
 const { assetTypes } = storeToRefs(useAssetTypesStore());
 
 const filters = ref<IEntityFilter>({});
+const sortBy = ref<ISort[]>([]);
 const pagination = ref<IPagination>({
     itemsPerPage: 30,
     page: 1,
 });
 const headers = computed(() => [
-    { title: 'Title', key: 'title' },
-    { title: 'Type', key: 'type.name' },
+    { title: 'Title', key: 'title', sortable: false },
+    { title: 'Type', key: 'type.name', sortable: false },
     { title: 'Size', key: 'size' },
-    { title: 'Address', key: 'address' },
-    { title: 'Description', key: 'description' },
+    { title: 'Address', key: 'address', sortable: false },
+    { title: 'Description', key: 'description', sortable: false },
     { title: 'Created', key: 'created_at', width: 130 },
-    { title: 'Updated', key: 'updated_at', width: 130 },
-    { title: 'Actions', key: 'actions', width: 10 },
+    { title: 'Updated', key: 'updated_at', width: 130, sortable: false },
+    { title: 'Actions', key: 'actions', width: 10, sortable: false },
 ]);
 
 const assetToEdit = ref<IAssetItem | null>(null);
 const editDialogIsVisible = ref(false);
 
-const onPageChange = (page: number) => {
+const onPageChange = async (page: number) => {
     pagination.value.page = page;
-    fetchAssets(pagination.value, filters.value);
+    await fetchAssets(pagination.value, filters.value, sortBy.value);
+};
+
+const onFilterChange = async (newFilters: IEntityFilter) => {
+    pagination.value.page = 1;
+    filters.value = newFilters;
+    await fetchAssets(pagination.value, filters.value, sortBy.value);
+};
+
+const onSortChange = async (newSortBy: ISort[]) => {
+    console.log(newSortBy);
+
+    pagination.value.page = 1;
+    sortBy.value = newSortBy;
+    await fetchAssets(pagination.value, filters.value, sortBy.value);
 };
 
 const showEditDialog = (asset: IAssetItem) => {
@@ -91,10 +109,6 @@ const showEditDialog = (asset: IAssetItem) => {
 const hideEditDialog = () => {
     assetToEdit.value = null;
     editDialogIsVisible.value = false;
-};
-
-const onFilterChange = (newFilters: IEntityFilter) => {
-    filters.value = newFilters;
 };
 
 const loadInitialData = async () => {
@@ -108,15 +122,6 @@ const loadInitialData = async () => {
         showFeedback('Error loading Initial data, contact your administrator!', 'red');
     }
 };
-
-watch(
-    filters,
-    async (newFilter) => {
-        pagination.value.page = 1;
-        await fetchAssets(pagination.value, newFilter);
-    },
-    { deep: true },
-);
 
 onBeforeMount(loadInitialData);
 </script>

@@ -2,6 +2,7 @@
     <v-card class="py-0" elevation="4" :min-height="gridHeight">
         <v-card-text>
             <v-data-table-server
+                v-model:sort-by="localSort"
                 :height="gridHeight"
                 :items-per-page="meta.per_page"
                 :page="meta.current_page"
@@ -41,13 +42,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, type PropType } from 'vue';
+import { computed, ref, watch, type PropType } from 'vue';
 import type { IAssetItem, IAssetMeta } from '../../contracts/IAsset';
+import type { ISort } from '../../contracts/ISort';
 
 import AddressCell from '@/components/grid-cells/AddressCell.vue';
 import DateCell from '@/components/grid-cells/DateCell.vue';
 
-const emit = defineEmits(['on-page-change', 'on-show-edit-dialog']);
+const emit = defineEmits(['on-page-change', 'on-sort-change']);
 const props = defineProps({
     assets: {
         type: Array as PropType<IAssetItem[]>,
@@ -65,13 +67,27 @@ const props = defineProps({
         type: String,
         required: true,
     },
+    sortBy: {
+        type: Array as PropType<ISort[]>,
+        required: true,
+    },
 });
+const localSort = ref(props.sortBy);
 
-const gridHeight = 920;
 const pageCount = computed(() => props.meta.last_page);
 const currentPage = computed(() => props.meta.current_page);
 const totalItems = computed(() => props.meta.total ?? 0);
 const loading = computed(() => props.state === 'LOADING');
+
+const gridHeight = 920;
+
+watch(
+    localSort,
+    async (newLocalSort) => {
+        emit('on-sort-change', newLocalSort);
+    },
+    { deep: true },
+);
 
 const onPageChange = (event: number) => {
     emit('on-page-change', event);

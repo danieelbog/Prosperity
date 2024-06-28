@@ -4,6 +4,7 @@ import { GetAssets, PutAsset } from './assetService';
 import type { IAssetItem, IAssetLinks, IAssetMeta } from '../../contracts/IAsset';
 import type { IPagination } from '../../contracts/IPagination';
 import type { IEntityFilter } from '../../contracts/IEntityFilter';
+import type { ISort } from '../../contracts/ISort';
 import { mapAssetItemToUpdateAssetItem, mapAssetListServerDataToClientItem } from './assetMapper';
 
 type STATE = 'INIT' | 'LOADING' | 'READY' | 'ERROR';
@@ -15,14 +16,20 @@ export const useAssetsStore = defineStore('assets', () => {
 
     const lastPagination = ref<IPagination>();
     const lastFilters = ref<IEntityFilter>();
+    const lastSortBy = ref<ISort[]>();
 
-    const fetchAssets = async (pagination?: IPagination, filters?: IEntityFilter) => {
+    const fetchAssets = async (
+        pagination?: IPagination,
+        filters?: IEntityFilter,
+        sortBy?: ISort[],
+    ) => {
         state.value = 'LOADING';
 
         if (!pagination) pagination = { itemsPerPage: 30, page: 1 };
         if (!filters) filters = {};
+        if (!sortBy) sortBy = [];
 
-        const response = await GetAssets(pagination, filters);
+        const response = await GetAssets(pagination, filters, sortBy);
 
         if (!response.data) {
             state.value = 'ERROR';
@@ -30,10 +37,14 @@ export const useAssetsStore = defineStore('assets', () => {
         }
 
         assets.value = mapAssetListServerDataToClientItem(response.data);
+
         meta.value = response.data.meta;
         links.value = response.data.links;
+
         lastPagination.value = pagination;
         lastFilters.value = filters;
+        lastSortBy.value = sortBy;
+
         state.value = 'READY';
     };
 
@@ -50,7 +61,7 @@ export const useAssetsStore = defineStore('assets', () => {
             throw new Error('Asset not updated');
         }
 
-        await fetchAssets(lastPagination.value, lastFilters.value);
+        await fetchAssets(lastPagination.value, lastFilters.value, lastSortBy.value);
     };
 
     return { assets, meta, state, fetchAssets, updateAsset };
